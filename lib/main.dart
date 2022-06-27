@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,7 +44,7 @@ class _InputScoreState extends State<InputScore> {
             ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    calculateScore();
+                    displayScore == 0 ? calculateScore() : null;
                     displayScore = userScore;
                   });
                 },
