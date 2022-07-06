@@ -3,18 +3,28 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'main.dart';
 
-class InputScore extends StatefulWidget {
+class InputScore extends ConsumerStatefulWidget {
   const InputScore({Key? key}) : super(key: key);
   @override
-  State<InputScore> createState() => _InputScoreState();
+  ConsumerState<InputScore> createState() => _InputScoreState();
 }
 
-class _InputScoreState extends State<InputScore> {
+class _InputScoreState extends ConsumerState<InputScore> {
   List<TextEditingController> myController =
       List.generate(5, (i) => TextEditingController());
   int displayScore = 0;
 
   int userScore = 0;
+
+  List<int> userScoreList = [];
+
+  void updateUserScoreList() {
+    for (int i = 0; i < 5; i++) {
+      userScoreList.add(int.parse(myController[i].text));
+    }
+    userScoreList.add(userScore);
+  }
+
   void calculateScore() {
     for (int i = 0; i < 5; i++) {
       userScore += int.parse(myController[i].text);
@@ -23,6 +33,8 @@ class _InputScoreState extends State<InputScore> {
 
   @override
   Widget build(BuildContext context) {
+    final playerScore = ref.read(playerScoreProvider.notifier);
+
     return MaterialApp(
       title: 'Everdell Scorebook',
       theme: ThemeData(
@@ -45,10 +57,13 @@ class _InputScoreState extends State<InputScore> {
                   setState(() {
                     displayScore == 0 ? calculateScore() : null;
                     displayScore = userScore;
+                    updateUserScoreList();
                   });
+                  playerScore.updateScore(userScoreList);
                 },
                 child: const Text("Submit")),
-            Text("Total: $displayScore")
+            Text(
+                "Total: $displayScore \n scorelist: $userScoreList \n score: ${playerScore.getScore().toString()}")
           ],
         ),
       ),
@@ -57,7 +72,7 @@ class _InputScoreState extends State<InputScore> {
 
   Container scoreElementColumn() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 70.0),
+      padding: const EdgeInsets.symmetric(horizontal: 50.0),
       child: Column(
         children: [
           scoreElement("Base points for cards:", 0),
