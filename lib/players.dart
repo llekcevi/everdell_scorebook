@@ -15,7 +15,13 @@ class _Players extends ConsumerState<Players> {
       List.generate(4, (index) => TextEditingController());
 
   int numberOfPlayers = 1;
+
   void incrementNumberOfPlayers() => numberOfPlayers++;
+
+  void updateNumberOfPlayers() =>
+      ref.read(playerScoreProvider.notifier).getNumberOfPlayers =
+          numberOfPlayers;
+
   @override
   Widget build(BuildContext context) {
     final playerScore = ref.read(playerScoreProvider.notifier);
@@ -81,6 +87,8 @@ class _Players extends ConsumerState<Players> {
                           child: const Text("Add a player")),
                       ElevatedButton(
                           onPressed: () {
+                            updateNumberOfPlayers();
+                            print(playerScore.getNumberOfPlayers);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

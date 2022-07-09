@@ -21,18 +21,34 @@ class Player {
   String name;
   List names;
   final Map<String, int> score;
+  final List<Map> scores;
 
-  Player(this.name, this.names, this.score);
+  List<int> scorePoints = [0, 0];
+
+  Player(this.name, this.names, this.score, this.scores);
 }
 
 class PlayerScore extends StateNotifier<Player> {
-  PlayerScore() : super(Player("", [], {}));
+  PlayerScore() : super(Player("", [], {}, []));
+
+  int getNumberOfPlayers = 1;
 
   void setName(String name) => state.name = name;
   String getName() => state.name;
 
   List getNames() => state.names;
   void updateNames(String name) => state.names.add(name);
+
+  void calculateScore(int index, List<List<TextEditingController>> userInput) {
+    int score = 0;
+    for (int i = 0; i < 5; i++) {
+      score += int.parse(userInput[index][i].text);
+      state.scorePoints[index] = score;
+    }
+  }
+
+  void setScorePoints(int index, int value) => state.scorePoints[index] = value;
+  List<int> getScorePoints() => state.scorePoints;
 
   void updateScore(List scoreList) {
     state.score["basePointsForCards"] = scoreList[0];
