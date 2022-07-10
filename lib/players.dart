@@ -92,7 +92,7 @@ class _Players extends ConsumerState<Players> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => InputScore()));
+                                    builder: (context) => const InputScore()));
                           },
                           child: const Icon(Icons.arrow_forward))
                     ],

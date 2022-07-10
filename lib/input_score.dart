@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'main.dart';
+import 'complete_result.dart';
 
 class InputScore extends ConsumerStatefulWidget {
   const InputScore({Key? key}) : super(key: key);
@@ -9,32 +10,9 @@ class InputScore extends ConsumerStatefulWidget {
   ConsumerState<InputScore> createState() => _InputScoreState();
 }
 
-var myController = [];
-
 class _InputScoreState extends ConsumerState<InputScore> {
   List<List<TextEditingController>> myControllers = List.generate(
       4, (index) => List.generate(5, (i) => TextEditingController()));
-
-  int displayScore = 0;
-
-  //List<int> userScores = [0, 0];
-
-  List<int> userScoreList = [];
-  /*void calculateScore(index) {
-    int score = 0;
-    for (int i = 0; i < 5; i++) {
-      score += int.parse(myController[index][i]);
-      userScores[index] = score;
-    }
-  }
-  */
-
-  void updateUserScoreList(index) {
-    for (int i = 0; i < 5; i++) {
-      userScoreList.add(int.parse(myController[index][i].text));
-    }
-    //userScoreList.add(userScore);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,40 +26,65 @@ class _InputScoreState extends ConsumerState<InputScore> {
             title: const Text("Everdell Scorebook"),
           ),
           body: SafeArea(
-              child: ListView.builder(
-                  itemCount: playerScore.getNumberOfPlayers,
-                  itemBuilder: (BuildContext context, int index) {
-                    return inputScoreWidget(playerScore, index);
-                  }))),
+              child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                    //scrollDirection: Axis.horizontal,
+                    itemCount: playerScore.getNumberOfPlayers,
+                    itemBuilder: (BuildContext context, int index) {
+                      return inputScoreWidget(playerScore, index);
+                    }),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CompleteResult()));
+                  },
+                  child: Text("See results"))
+            ],
+          ))),
     );
   }
 
-  Column inputScoreWidget(PlayerScore playerScore, int index) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "${playerScore.getNames()[index].toString()}, enter your points",
-          style: const TextStyle(fontWeight: FontWeight.bold),
+  Card inputScoreWidget(PlayerScore playerScore, int index) {
+    return Card(
+      color: Colors.white54,
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "${playerScore.getNames()[index].toString()}, enter your points",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            scoreElementColumn(index),
+            ElevatedButton(
+                onPressed: () {
+                  playerScore.calculateScore(index, myControllers);
+                  playerScore.updateScoreInfo(
+                      index, playerScore.getScorePoints());
+                  print(
+                      "getScorePoints(list) :${playerScore.getScorePoints()}");
+                  print("getScores(list): ${playerScore.getScores()}");
+                },
+                child: const Text("Submit")),
+          ],
         ),
-        scoreElementColumn(index),
-        const SizedBox(height: 10),
-        ElevatedButton(
-            onPressed: () {
-              playerScore.calculateScore(index, myControllers);
-              print(playerScore.getScorePoints());
-              //playerScore.updateScore(userScoreList);
-            },
-            child: const Text("Submit")),
-        Text(
-            "Total: $displayScore \n ") //scorelist: $userScoreList ") //\n score: ${playerScore.getScore().toString()}")
-      ],
+      ),
     );
   }
 
   Container scoreElementColumn(int index) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
         children: [
           scoreElement("Base points for cards:", 0, index),

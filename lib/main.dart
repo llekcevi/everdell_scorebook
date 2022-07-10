@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(ProviderScope(child: const EverdellScore()));
+  runApp(const ProviderScope(child: EverdellScore()));
 }
 
 class EverdellScore extends StatelessWidget {
@@ -11,7 +11,7 @@ class EverdellScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Players(),
     );
   }
@@ -20,16 +20,14 @@ class EverdellScore extends StatelessWidget {
 class Player {
   String name;
   List names;
-  final Map<String, int> score;
-  final List<Map> scores;
+  List<Map> scores;
+  List<int> scorePoints;
 
-  List<int> scorePoints = [0, 0];
-
-  Player(this.name, this.names, this.score, this.scores);
+  Player(this.name, this.names, this.scores, this.scorePoints);
 }
 
 class PlayerScore extends StateNotifier<Player> {
-  PlayerScore() : super(Player("", [], {}, []));
+  PlayerScore() : super(Player("", [], [], []));
 
   int getNumberOfPlayers = 1;
 
@@ -41,25 +39,32 @@ class PlayerScore extends StateNotifier<Player> {
 
   void calculateScore(int index, List<List<TextEditingController>> userInput) {
     int score = 0;
+    state.scorePoints.clear();
     for (int i = 0; i < 5; i++) {
+      state.scorePoints.add(int.parse(userInput[index][i].text));
       score += int.parse(userInput[index][i].text);
-      state.scorePoints[index] = score;
     }
+    state.scorePoints.add(score);
   }
 
-  void setScorePoints(int index, int value) => state.scorePoints[index] = value;
+  setScorePoints(int index, int value) => state.scorePoints[index] = value;
   List<int> getScorePoints() => state.scorePoints;
 
-  void updateScore(List scoreList) {
-    state.score["basePointsForCards"] = scoreList[0];
-    state.score["pointTokens"] = scoreList[1];
-    state.score["prosperityCardBonusPoints"] = scoreList[2];
-    state.score["journeyPoints"] = scoreList[3];
-    state.score["events"] = scoreList[4];
-    state.score["total"] = scoreList[5];
+  void updateScoreInfo(int index, List scoreList) {
+    Map<String, dynamic> scoreInfo = {};
+
+    scoreInfo["name"] = state.names[index];
+    scoreInfo["basePointsForCards"] = scoreList[0];
+    scoreInfo["pointTokens"] = scoreList[1];
+    scoreInfo["prosperityCardBonusPoints"] = scoreList[2];
+    scoreInfo["journeyPoints"] = scoreList[3];
+    scoreInfo["events"] = scoreList[4];
+    scoreInfo["total"] = scoreList[5];
+
+    state.scores.add(scoreInfo);
   }
 
-  Map getScore() => state.score;
+  List getScores() => state.scores;
 }
 
 final playerScoreProvider =
