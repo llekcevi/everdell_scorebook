@@ -38,6 +38,8 @@ class _InputScoreState extends ConsumerState<InputScore> {
               ),
               ElevatedButton(
                   onPressed: () {
+                    playerScore.saveDateTime();
+                    print(playerScore.getScores());
                     Navigator.push(
                         context,
                         MaterialPageRoute(

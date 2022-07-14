@@ -20,7 +20,7 @@ class EverdellScore extends StatelessWidget {
 class Player {
   String name;
   List names;
-  List<Map> scores;
+  List<dynamic> scores;
   List<int> scorePoints;
 
   Player(this.name, this.names, this.scores, this.scorePoints);
@@ -47,7 +47,6 @@ class PlayerScore extends StateNotifier<Player> {
     state.scorePoints.add(score);
   }
 
-  setScorePoints(int index, int value) => state.scorePoints[index] = value;
   List<int> getScorePoints() => state.scorePoints;
 
   void updateScoreInfo(int index, List scoreList) {
@@ -63,6 +62,8 @@ class PlayerScore extends StateNotifier<Player> {
 
     state.scores.add(scoreInfo);
   }
+
+  void saveDateTime() => state.scores.add(DateTime.now().toString());
 
   List getScores() => state.scores;
 }
