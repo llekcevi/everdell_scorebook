@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,7 +32,6 @@ class _InputScoreState extends ConsumerState<InputScore> {
             children: [
               Expanded(
                 child: ListView.builder(
-                    //scrollDirection: Axis.horizontal,
                     itemCount: playerScore.getNumberOfPlayers,
                     itemBuilder: (BuildContext context, int index) {
                       return inputScoreWidget(playerScore, index);
@@ -40,12 +41,14 @@ class _InputScoreState extends ConsumerState<InputScore> {
                   onPressed: () {
                     playerScore.saveDateTime();
                     print(playerScore.getScores());
+                    String scoreJson = jsonEncode(playerScore.getScores());
+                    print("scoreJson: $scoreJson");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CompleteResult()));
+                            builder: (context) => const CompleteResult()));
                   },
-                  child: Text("See results"))
+                  child: const Text("See results"))
             ],
           ))),
     );
