@@ -19,8 +19,7 @@ class _Players extends ConsumerState<Players> {
   void incrementNumberOfPlayers() => numberOfPlayers++;
 
   void updateNumberOfPlayers() =>
-      ref.read(playerScoreProvider.notifier).getNumberOfPlayers =
-          numberOfPlayers;
+      ref.read(playerScoreProvider.notifier).numberOfPlayers = numberOfPlayers;
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +54,11 @@ class _Players extends ConsumerState<Players> {
                                     border: OutlineInputBorder()),
                                 onSubmitted: (String name) {
                                   {
-                                    playerScore.setName(username[index].text);
+                                    //playerScore.setName(username[index].text);
                                     playerScore
                                         .updateNames(username[index].text);
                                   }
                                   ;
-                                  print(playerScore.getName().toString());
                                   print(playerScore.getNames().toString());
                                 },
                               ),
@@ -88,7 +86,7 @@ class _Players extends ConsumerState<Players> {
                       ElevatedButton(
                           onPressed: () {
                             updateNumberOfPlayers();
-                            print(playerScore.getNumberOfPlayers);
+                            print(playerScore.numberOfPlayers);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

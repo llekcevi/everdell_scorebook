@@ -17,56 +17,52 @@ class EverdellScore extends StatelessWidget {
   }
 }
 
-class Player {
-  String name;
-  List names;
-  List<dynamic> scores;
-  List<int> scorePoints;
+class GameScore {
+  final List _names;
+  final List<dynamic> _scores;
+  final DateTime _timeStamp;
 
-  Player(this.name, this.names, this.scores, this.scorePoints);
+  GameScore(this._names, this._scores, this._timeStamp);
 }
 
-class PlayerScore extends StateNotifier<Player> {
-  PlayerScore() : super(Player("", [], [], []));
+class PlayerScore extends StateNotifier<GameScore> {
+  PlayerScore() : super(GameScore([], [], DateTime.now()));
 
-  int getNumberOfPlayers = 1;
+  int numberOfPlayers = 1;
 
-  void setName(String name) => state.name = name;
-  String getName() => state.name;
+  List getNames() => state._names;
 
-  List getNames() => state.names;
-  void updateNames(String name) => state.names.add(name);
+  void updateNames(String name) => state._names.add(name);
 
-  void calculateScore(int index, List<List<TextEditingController>> userInput) {
+  void updateScoreInfo(int index, List<List<TextEditingController>> userInput) {
+    Map<String, dynamic> scoreInfo = {};
+    List<int> scorePoints = [];
     int score = 0;
-    state.scorePoints.clear();
     for (int i = 0; i < 5; i++) {
-      state.scorePoints.add(int.parse(userInput[index][i].text));
+      scorePoints.add(int.parse(userInput[index][i].text));
       score += int.parse(userInput[index][i].text);
     }
-    state.scorePoints.add(score);
+
+    scoreInfo["name"] = state._names[index];
+    scoreInfo["basePointsForCards"] = scorePoints[0];
+    scoreInfo["pointTokens"] = scorePoints[1];
+    scoreInfo["prosperityCardBonusPoints"] = scorePoints[2];
+    scoreInfo["journeyPoints"] = scorePoints[3];
+    scoreInfo["events"] = scorePoints[4];
+    scoreInfo["total"] = score;
+
+    state._scores.add(scoreInfo);
   }
 
-  List<int> getScorePoints() => state.scorePoints;
-
-  void updateScoreInfo(int index, List scoreList) {
-    Map<String, dynamic> scoreInfo = {};
-
-    scoreInfo["name"] = state.names[index];
-    scoreInfo["basePointsForCards"] = scoreList[0];
-    scoreInfo["pointTokens"] = scoreList[1];
-    scoreInfo["prosperityCardBonusPoints"] = scoreList[2];
-    scoreInfo["journeyPoints"] = scoreList[3];
-    scoreInfo["events"] = scoreList[4];
-    scoreInfo["total"] = scoreList[5];
-
-    state.scores.add(scoreInfo);
+  DateTime getTimeStamp() {
+    return state._timeStamp;
   }
 
-  void saveDateTime() => state.scores.add(DateTime.now().toString());
+  List getScores() => state._scores;
 
-  List getScores() => state.scores;
+  Map toMap() =>
+      {"scores": state._scores, "timeStamp": state._timeStamp.toString()};
 }
 
 final playerScoreProvider =
-    StateNotifierProvider<PlayerScore, Player>(((ref) => PlayerScore()));
+    StateNotifierProvider<PlayerScore, GameScore>(((ref) => PlayerScore()));

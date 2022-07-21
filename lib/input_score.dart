@@ -32,16 +32,14 @@ class _InputScoreState extends ConsumerState<InputScore> {
             children: [
               Expanded(
                 child: ListView.builder(
-                    itemCount: playerScore.getNumberOfPlayers,
+                    itemCount: playerScore.numberOfPlayers,
                     itemBuilder: (BuildContext context, int index) {
                       return inputScoreWidget(playerScore, index);
                     }),
               ),
               ElevatedButton(
                   onPressed: () {
-                    playerScore.saveDateTime();
-                    print(playerScore.getScores());
-                    String scoreJson = jsonEncode(playerScore.getScores());
+                    String scoreJson = jsonEncode(playerScore.toMap());
                     print("scoreJson: $scoreJson");
                     Navigator.push(
                         context,
@@ -73,11 +71,7 @@ class _InputScoreState extends ConsumerState<InputScore> {
             scoreElementColumn(index),
             ElevatedButton(
                 onPressed: () {
-                  playerScore.calculateScore(index, myControllers);
-                  playerScore.updateScoreInfo(
-                      index, playerScore.getScorePoints());
-                  print(
-                      "getScorePoints(list) :${playerScore.getScorePoints()}");
+                  playerScore.updateScoreInfo(index, myControllers);
                   print("getScores(list): ${playerScore.getScores()}");
                 },
                 child: const Text("Submit")),
