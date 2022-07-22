@@ -54,7 +54,8 @@ class _Players extends ConsumerState<Players> {
                                     border: OutlineInputBorder()),
                                 onSubmitted: (String name) {
                                   {
-                                    //playerScore.setName(username[index].text);
+                                    playerScore
+                                        .updateName(username[index].text);
                                     playerScore
                                         .updateNames(username[index].text);
                                   }
