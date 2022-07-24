@@ -25,6 +25,19 @@ class Player {
 
   String getName() => _name;
   List<int> getScore() => _score;
+  List<int> setScore(List<int> userScore) => _score = userScore;
+
+  Map<String, dynamic> toMap() {
+    return {
+      "name": _name,
+      "score": _score,
+    };
+  }
+
+  @override
+  String toString() {
+    return "Player{name: $_name, score: $_score}";
+  }
 }
 
 class GameScore extends Player {
@@ -48,7 +61,8 @@ class PlayerScore extends StateNotifier<GameScore> {
 
   void updateNames(String name) => state._names.add(name);
 
-  void updateScoreInfo(int index, List<List<TextEditingController>> userInput) {
+  List<int> updateScoreInfo(
+      int index, List<List<TextEditingController>> userInput) {
     //Map<String, dynamic> scoreInfo = {};
     List<int> scorePoints = [];
     //int score = 0;
@@ -56,9 +70,7 @@ class PlayerScore extends StateNotifier<GameScore> {
       scorePoints.add(int.parse(userInput[index][i].text));
       //_score += int.parse(userInput[index][i].text);
     }
-    print("updateScoreInfo scorePoints:${scorePoints}");
-    updateScore(scorePoints);
-    print("uptadeScoreInfo getScore(): ${state.getScore()}");
+    return scorePoints;
 /* 
     scoreInfo["name"] = state._names[index];
     scoreInfo["basePointsForCards"] = scorePoints[0];

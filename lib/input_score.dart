@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'main.dart';
+
 import 'complete_result.dart';
+import 'main.dart';
 
 class InputScore extends ConsumerStatefulWidget {
   const InputScore({Key? key}) : super(key: key);
@@ -39,8 +38,6 @@ class _InputScoreState extends ConsumerState<InputScore> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    String scoreJson = jsonEncode(playerScore.toMap());
-                    print("scoreJson: $scoreJson");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -74,15 +71,15 @@ class _InputScoreState extends ConsumerState<InputScore> {
             scoreElementColumn(index),
             ElevatedButton(
                 //change updateScoreInfo()
-                //print out score form Player class
                 onPressed: () {
                   print(
                       "from player class in input score: ${newPlayer.getName().toString()}");
-                  playerScore.updateScoreInfo(index, myControllers);
+                  newPlayer.setScore(
+                      playerScore.updateScoreInfo(index, myControllers));
                   print(
                       "from player class in input score: ${newPlayer.getScore().toString()}");
-
-                  print("getScores(list): ${playerScore.getScores()}");
+                  print(newPlayer.toString());
+                  //print("getScores(list): ${playerScore.getScores()}");
                 },
                 child: const Text("Submit")),
           ],
