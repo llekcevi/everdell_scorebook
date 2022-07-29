@@ -51,7 +51,6 @@ class _InputScoreState extends ConsumerState<InputScore> {
 
   Card inputScoreWidget(PlayerScore playerScore, int index) {
     String player = playerScore.getNames()[index].toString();
-    Player newPlayer = Player(player, []);
 
     return Card(
       color: Colors.white54,
@@ -62,7 +61,7 @@ class _InputScoreState extends ConsumerState<InputScore> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "${newPlayer.getName().toString()}, enter your points",
+              "$player, enter your points",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -72,14 +71,8 @@ class _InputScoreState extends ConsumerState<InputScore> {
             ElevatedButton(
                 //change updateScoreInfo()
                 onPressed: () {
-                  print(
-                      "from player class in input score: ${newPlayer.getName().toString()}");
-                  newPlayer.setScore(
-                      playerScore.updateScoreInfo(index, myControllers));
-                  print(
-                      "from player class in input score: ${newPlayer.getScore().toString()}");
-                  print(newPlayer.toString());
-                  //print("getScores(list): ${playerScore.getScores()}");
+                  playerScore.updateScoreInfo(index, myControllers);
+                  print("getScores(list): ${playerScore.getScores()}");
                 },
                 child: const Text("Submit")),
           ],

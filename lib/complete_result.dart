@@ -8,11 +8,21 @@ class CompleteResult extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final playerScore = ref.read(playerScoreProvider.notifier);
-    final score = playerScore.getScores();
+    final scores = playerScore.getScores();
+    final names = playerScore.getNames();
+    final date = playerScore.getTimeStamp();
 
     return Scaffold(
-        body: Center(
-            child: Text(
-                "${score[0]["name"]} scored ${score[0]["total"]},   ${score[1]["name"]} scored ${score[1]["total"]} \n")));
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(names.toString()),
+            Text(scores.toString()),
+            Text(date.toIso8601String()),
+          ],
+        ),
+      ),
+    );
   }
 }

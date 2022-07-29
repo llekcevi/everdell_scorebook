@@ -17,70 +17,29 @@ class EverdellScore extends StatelessWidget {
   }
 }
 
-class Player {
-  String _name;
-  List<int> _score;
-
-  Player(this._name, this._score);
-
-  String getName() => _name;
-  List<int> getScore() => _score;
-  List<int> setScore(List<int> userScore) => _score = userScore;
-
-  Map<String, dynamic> toMap() {
-    return {
-      "name": _name,
-      "score": _score,
-    };
-  }
-
-  @override
-  String toString() {
-    return "Player{name: $_name, score: $_score}";
-  }
-}
-
-class GameScore extends Player {
+class GameScore {
   final List _names;
-  final List<dynamic> _scores;
+  final List<List<int>> _scores;
   final DateTime _timeStamp;
 
-  GameScore(this._names, this._scores, this._timeStamp) : super('', []);
+  GameScore(this._names, this._scores, this._timeStamp);
 }
 
 class PlayerScore extends StateNotifier<GameScore> {
   PlayerScore() : super(GameScore([], [], DateTime.now()));
 
   int numberOfPlayers = 1;
-//player class
-  void updateName(String userInput) => state._name = userInput;
-  void updateScore(List<int> scorePoints) => state._score = scorePoints;
 
-//gameScore subclass
   List getNames() => state._names;
 
   void updateNames(String name) => state._names.add(name);
 
-  List<int> updateScoreInfo(
-      int index, List<List<TextEditingController>> userInput) {
-    //Map<String, dynamic> scoreInfo = {};
+  void updateScoreInfo(int index, List<List<TextEditingController>> userInput) {
     List<int> scorePoints = [];
-    //int score = 0;
     for (int i = 0; i < 5; i++) {
       scorePoints.add(int.parse(userInput[index][i].text));
-      //_score += int.parse(userInput[index][i].text);
     }
-    return scorePoints;
-/* 
-    scoreInfo["name"] = state._names[index];
-    scoreInfo["basePointsForCards"] = scorePoints[0];
-    scoreInfo["pointTokens"] = scorePoints[1];
-    scoreInfo["prosperityCardBonusPoints"] = scorePoints[2];
-    scoreInfo["journeyPoints"] = scorePoints[3];
-    scoreInfo["events"] = scorePoints[4];
-    scoreInfo["total"] = score;
-
-    state._scores.add(scoreInfo); */
+    state._scores.add(scorePoints);
   }
 
   DateTime getTimeStamp() {
