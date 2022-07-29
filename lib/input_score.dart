@@ -37,6 +37,9 @@ class _InputScoreState extends ConsumerState<InputScore> {
                     }),
               ),
               ElevatedButton(
+
+                  //this is where the GameScore instance has to be saved to the database
+
                   onPressed: () {
                     Navigator.push(
                         context,
