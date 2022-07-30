@@ -4,10 +4,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
+part 'main.g.dart';
+
+@HiveType(typeId: 0)
+class GameScore {
+  @HiveField(0)
+  final List _names;
+  @HiveField(1)
+  final List<List<int>> _scores;
+  @HiveField(2)
+  final DateTime _timeStamp;
+
+  List getNames() => _names;
+  List getScores() => _scores;
+  String getDateTime() => _timeStamp.toIso8601String();
+  GameScore(this._names, this._scores, this._timeStamp);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
+  Hive.registerAdapter(GameScoreAdapter());
   runApp(const ProviderScope(child: EverdellScore()));
 }
 
@@ -20,14 +38,6 @@ class EverdellScore extends StatelessWidget {
       home: Players(),
     );
   }
-}
-
-class GameScore {
-  final List _names;
-  final List<List<int>> _scores;
-  final DateTime _timeStamp;
-
-  GameScore(this._names, this._scores, this._timeStamp);
 }
 
 class PlayerScore extends StateNotifier<GameScore> {
@@ -51,10 +61,12 @@ class PlayerScore extends StateNotifier<GameScore> {
     return state._timeStamp;
   }
 
-  List getScores() => state._scores;
+  List<List<int>> getScores() => state._scores;
 
-  Map toMap() =>
-      {"scores": state._scores, "timeStamp": state._timeStamp.toString()};
+  void addScoreToBox(GameScore gameScore) {
+    final scoreBox = Hive.box("score_records");
+    scoreBox.add(gameScore);
+  }
 }
 
 final playerScoreProvider =

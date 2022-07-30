@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'complete_result.dart';
 import 'main.dart';
 
@@ -37,10 +36,14 @@ class _InputScoreState extends ConsumerState<InputScore> {
                     }),
               ),
               ElevatedButton(
-
-                  //this is where the GameScore instance has to be saved to the database
-
                   onPressed: () {
+                    final names = playerScore.getNames();
+                    final scores = playerScore.getScores();
+                    final timeStamp = playerScore.getTimeStamp();
+                    final newGameScore = GameScore(names, scores, timeStamp);
+
+                    playerScore.addScoreToBox(newGameScore);
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
