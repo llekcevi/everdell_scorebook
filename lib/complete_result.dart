@@ -9,24 +9,58 @@ class CompleteResult extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final playerScore = ref.read(playerScoreProvider.notifier);
-    final scores = playerScore.getScores();
-    final names = playerScore.getNames();
-    final date = playerScore.getTimeStamp();
-
     final scoreBox = Hive.box("score_records");
-    final game = scoreBox.get(0) as GameScore;
+    final numberOfPlayers = playerScore.numberOfPlayers;
+    //final game = scoreBox.get(0) as GameScore;
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(game.getNames().toString()),
-            Text(game.getScores().toString()),
-            Text(game.getDateTime()),
-          ],
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: scoreBox.length,
+              itemBuilder: (context, index) =>
+                  displayScore(scoreBox, index, numberOfPlayers),
+            ),
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () => scoreBox.clear(), child: Text("delete all")),
+              ElevatedButton(
+                  onPressed: () => Navigator.pop(context), child: Text("back"))
+            ],
+          )
+        ],
       ),
+    );
+  }
+
+  Widget displayScore(Box<dynamic> scoreBox, int index, int numberOfPlayers) {
+    final names = scoreBox.get(index).getNames();
+    final scores = scoreBox.get(index).getScores();
+    final dateTime = scoreBox.get(index).getDateTime();
+
+    return Container(
+      height: 100,
+      padding: EdgeInsets.symmetric(vertical: 20),
+      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+      child: Column(children: [
+        Text(dateTime),
+        Expanded(
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: numberOfPlayers,
+              itemBuilder: (context, index) => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(names[index].toString()),
+                      Text(scores[index].toString()),
+                    ],
+                  )),
+        ),
+      ]),
     );
   }
 }

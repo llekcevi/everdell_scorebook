@@ -17,6 +17,7 @@ class GameScore {
 
   List getNames() => _names;
   List getScores() => _scores;
+
   String getDateTime() => _timeStamp.toIso8601String();
   GameScore(this._names, this._scores, this._timeStamp);
 }
