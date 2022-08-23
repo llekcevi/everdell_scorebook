@@ -20,10 +20,11 @@ class CompleteResult extends ConsumerWidget {
             child: ListView.builder(
               itemCount: scoreBox.length,
               itemBuilder: (context, index) =>
-                  displayScore(scoreBox, index, numberOfPlayers),
+                  displayScore(scoreBox, index, numberOfPlayers, playerScore),
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
                   onPressed: () => scoreBox.clear(), child: Text("delete all")),
@@ -36,31 +37,44 @@ class CompleteResult extends ConsumerWidget {
     );
   }
 
-  Widget displayScore(Box<dynamic> scoreBox, int index, int numberOfPlayers) {
+  Widget displayScore(Box<dynamic> scoreBox, int index, int numberOfPlayers,
+      PlayerScore playerScore) {
     final names = scoreBox.get(index).getNames();
     final scores = scoreBox.get(index).getScores();
     final dateTime = scoreBox.get(index).getDateTime();
+    final day = dateTime.day;
+    final month = dateTime.month;
+    final year = dateTime.year;
+    final hour = dateTime.hour;
+    final minute = dateTime.minute;
 
-    return Container(
-      height: 100,
-      padding: EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-      child: Column(children: [
-        Text(dateTime),
-        Expanded(
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: numberOfPlayers,
-              itemBuilder: (context, index) => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(names[index].toString()),
-                      Text(scores[index].toString()),
-                    ],
-                  )),
-        ),
-      ]),
+    return Card(
+      child: Container(
+        height: 70,
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Text("Date: $day.$month.$year. \n Time: $hour:$minute"),
+          SizedBox(
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: numberOfPlayers,
+                itemBuilder: (context, index) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (int i = 0; i < numberOfPlayers + 1; i++)
+                          Row(
+                            children: [
+                              Text("${names[i].toString()}: "),
+                              Text(playerScore
+                                  .getScoreSum(scores, i)
+                                  .toString()),
+                            ],
+                          ),
+                      ],
+                    )),
+          ),
+        ]),
+      ),
     );
   }
 }

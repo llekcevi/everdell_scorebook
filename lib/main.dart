@@ -18,7 +18,7 @@ class GameScore {
   List getNames() => _names;
   List getScores() => _scores;
 
-  String getDateTime() => _timeStamp.toIso8601String();
+  DateTime getDateTime() => _timeStamp;
   GameScore(this._names, this._scores, this._timeStamp);
 }
 
@@ -56,6 +56,14 @@ class PlayerScore extends StateNotifier<GameScore> {
       scorePoints.add(int.parse(userInput[index][i].text));
     }
     state._scores.add(scorePoints);
+  }
+
+  int getScoreSum(List scores, int index) {
+    int sum = 0;
+    for (int element in scores[index]) {
+      sum += element;
+    }
+    return sum;
   }
 
   DateTime getTimeStamp() {

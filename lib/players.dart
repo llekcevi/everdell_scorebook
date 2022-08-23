@@ -1,3 +1,4 @@
+import 'package:everdell_app/complete_result.dart';
 import 'package:everdell_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -102,7 +103,14 @@ class _Players extends ConsumerState<Players> {
                                               builder: (context) =>
                                                   const InputScore()));
                                     },
-                                    child: const Icon(Icons.arrow_forward))
+                                    child: const Icon(Icons.arrow_forward)),
+                                ElevatedButton(
+                                    onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const CompleteResult()))),
+                                    child: Text("See results"))
                               ],
                             ),
                           )
