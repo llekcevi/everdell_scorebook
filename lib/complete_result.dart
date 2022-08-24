@@ -49,30 +49,23 @@ class CompleteResult extends ConsumerWidget {
     final minute = dateTime.minute;
 
     return Card(
-      child: Container(
+      child: SizedBox(
         height: 70,
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           Text("Date: $day.$month.$year. \n Time: $hour:$minute"),
           SizedBox(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: numberOfPlayers,
-                itemBuilder: (context, index) => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (int i = 0; i < numberOfPlayers + 1; i++)
-                          Row(
-                            children: [
-                              Text("${names[i].toString()}: "),
-                              Text(playerScore
-                                  .getScoreSum(scores, i)
-                                  .toString()),
-                            ],
-                          ),
-                      ],
-                    )),
-          ),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (int i = 0; i < names.length; i++)
+                Row(
+                  children: [
+                    Text("${names[i].toString()}: "),
+                    Text(playerScore.getScoreSum(scores, i).toString()),
+                  ],
+                ),
+            ],
+          )),
         ]),
       ),
     );
