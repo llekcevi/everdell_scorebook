@@ -2,6 +2,7 @@ import 'package:everdell_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'score_detail.dart';
 
 class CompleteResult extends ConsumerWidget {
   const CompleteResult({Key? key}) : super(key: key);
@@ -13,26 +14,41 @@ class CompleteResult extends ConsumerWidget {
     final numberOfPlayers = playerScore.numberOfPlayers;
     //final game = scoreBox.get(0) as GameScore;
 
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: scoreBox.length,
-              itemBuilder: (context, index) =>
-                  displayScore(scoreBox, index, numberOfPlayers, playerScore),
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                reverse: true,
+                itemCount: scoreBox.length,
+                itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ScoreDetail(
+                                    score: scoreBox,
+                                    index: index,
+                                  )));
+                    },
+                    child: displayScore(
+                        scoreBox, index, numberOfPlayers, playerScore)),
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                  onPressed: () => scoreBox.clear(), child: Text("delete all")),
-              ElevatedButton(
-                  onPressed: () => Navigator.pop(context), child: Text("back"))
-            ],
-          )
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                    onPressed: () => scoreBox.clear(),
+                    child: Text("delete all")),
+                ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("back"))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
