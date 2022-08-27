@@ -1,10 +1,9 @@
-import 'package:everdell_app/players.dart';
+import 'package:everdell_app/screens/players.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-
-part 'main.g.dart';
+import 'models/game_score.dart';
 
 @HiveType(typeId: 0)
 class GameScore {

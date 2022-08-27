@@ -1,4 +1,4 @@
-import 'package:everdell_app/complete_result.dart';
+import 'package:everdell_app/screens/complete_result.dart';
 import 'package:everdell_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

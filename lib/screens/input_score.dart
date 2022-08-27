@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'complete_result.dart';
-import 'main.dart';
+import '../main.dart';
 
 class InputScore extends ConsumerStatefulWidget {
   const InputScore({Key? key}) : super(key: key);
