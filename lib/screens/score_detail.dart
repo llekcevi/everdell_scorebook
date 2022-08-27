@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'complete_result.dart';
+import '../widgets/create_results_table.dart';
 
 class ScoreDetail extends StatelessWidget {
   const ScoreDetail({super.key, required this.score, required this.index});
@@ -21,6 +18,7 @@ class ScoreDetail extends StatelessWidget {
     final year = dateTime.year;
     final hour = dateTime.hour;
     final minute = dateTime.minute;
+
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -38,29 +36,4 @@ class ScoreDetail extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget createResultsTable(List names, List scores) {
-  final List<String> firstColumn = [
-    "Names",
-    "Cards",
-    "Tokens",
-    "Prosperity bonus",
-    "Journey",
-    "Events"
-  ];
-
-  List<TableRow> rows = [];
-
-  for (int row = 0; row < firstColumn.length; row++) {
-    rows.add(TableRow(children: [
-      Text(firstColumn[row]),
-      if (row == 0)
-        for (int i = 0; i < names.length; i++) Text(names[i])
-      else
-        for (int i = 0; i < names.length; i++)
-          Text(scores[i][row - 1].toString())
-    ]));
-  }
-  return Table(children: rows);
 }

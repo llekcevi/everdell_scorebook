@@ -1,23 +1,21 @@
-import 'package:everdell_app/screens/players.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+library game_score;
+
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 
 part 'game_score.g.dart';
 
 @HiveType(typeId: 0)
 class GameScore {
   @HiveField(0)
-  final _names;
+  final names;
   @HiveField(1)
-  final List<List<int>> _scores;
+  final List<List<int>> scores;
   @HiveField(2)
-  final DateTime _timeStamp;
+  final DateTime timeStamp;
 
-  List getNames() => _names;
-  List<List<int>> getScores() => _scores;
+  List getNames() => names;
+  List<List<int>> getScores() => scores;
 
-  DateTime getDateTime() => _timeStamp;
-  GameScore(this._names, this._scores, this._timeStamp);
+  DateTime getDateTime() => timeStamp;
+  GameScore(this.names, this.scores, this.timeStamp);
 }

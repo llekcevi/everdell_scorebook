@@ -1,25 +1,9 @@
-import 'package:everdell_app/screens/players.dart';
+import 'package:everdell_app/screens/input_players.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'models/game_score.dart';
-
-@HiveType(typeId: 0)
-class GameScore {
-  @HiveField(0)
-  final _names;
-  @HiveField(1)
-  final List<List<int>> _scores;
-  @HiveField(2)
-  final DateTime _timeStamp;
-
-  List getNames() => _names;
-  List<List<int>> getScores() => _scores;
-
-  DateTime getDateTime() => _timeStamp;
-  GameScore(this._names, this._scores, this._timeStamp);
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,48 +18,8 @@ class EverdellScore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Players(),
+    return const MaterialApp(
+      home: InputPlayers(),
     );
   }
 }
-
-class PlayerScore extends StateNotifier<GameScore> {
-  PlayerScore() : super(GameScore([], [], DateTime.now()));
-
-  int numberOfPlayers = 1;
-
-  List getNames() => state._names;
-
-  void updateNames(String name) => state._names.add(name);
-
-  void updateScoreInfo(int index, List<List<TextEditingController>> userInput) {
-    List<int> scorePoints = [];
-    for (int i = 0; i < 5; i++) {
-      scorePoints.add(int.parse(userInput[index][i].text));
-    }
-    state._scores.add(scorePoints);
-  }
-
-  int getScoreSum(List scores, int index) {
-    int sum = 0;
-    for (int element in scores[index]) {
-      sum += element;
-    }
-    return sum;
-  }
-
-  DateTime getTimeStamp() {
-    return state._timeStamp;
-  }
-
-  List<List<int>> getScores() => state._scores;
-
-  void addScoreToBox(GameScore gameScore) {
-    final scoreBox = Hive.box("score_records");
-    scoreBox.add(gameScore);
-  }
-}
-
-final playerScoreProvider =
-    StateNotifierProvider<PlayerScore, GameScore>(((ref) => PlayerScore()));

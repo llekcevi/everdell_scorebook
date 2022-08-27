@@ -1,17 +1,18 @@
 import 'package:everdell_app/screens/complete_result.dart';
-import 'package:everdell_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'input_score.dart';
+import '../state/state.dart';
+import '../widgets/input_players_names.dart';
 
-class Players extends ConsumerStatefulWidget {
-  Players({Key? key}) : super(key: key);
+class InputPlayers extends ConsumerStatefulWidget {
+  const InputPlayers({Key? key}) : super(key: key);
   @override
-  ConsumerState<Players> createState() => _Players();
+  ConsumerState<InputPlayers> createState() => _Players();
 }
 
-class _Players extends ConsumerState<Players> {
+class _Players extends ConsumerState<InputPlayers> {
   List<TextEditingController> username =
       List.generate(4, (index) => TextEditingController());
 
@@ -44,42 +45,8 @@ class _Players extends ConsumerState<Players> {
                     body: SafeArea(
                       child: Column(
                         children: [
-                          Expanded(
-                            child: ListView.builder(
-                              padding: const EdgeInsets.only(top: 32.0),
-                              itemCount: numberOfPlayers,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                          "Player no. ${index + 1}, enter your name:"),
-                                      SizedBox(
-                                        width: 300,
-                                        child: TextField(
-                                          controller: username[index],
-                                          decoration: const InputDecoration(
-                                              border: OutlineInputBorder()),
-                                          onSubmitted: (String name) {
-                                            {
-                                              playerScore.updateNames(
-                                                  username[index].text);
-                                            }
-                                            ;
-                                            print(playerScore
-                                                .getNames()
-                                                .toString());
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Text(playerScore.getNames().toString()),
+                          inputPlayersNames(
+                              playerScore, username, numberOfPlayers),
                           SizedBox(
                             height: 50,
                             child: Row(
@@ -120,7 +87,7 @@ class _Players extends ConsumerState<Players> {
                   );
                 }
               } else {
-                return Scaffold();
+                return const Scaffold();
               }
               ;
             }));

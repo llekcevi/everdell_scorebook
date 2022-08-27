@@ -28,11 +28,11 @@ class GameScoreAdapter extends TypeAdapter<GameScore> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj._names)
+      ..write(obj.names)
       ..writeByte(1)
-      ..write(obj._scores)
+      ..write(obj.scores)
       ..writeByte(2)
-      ..write(obj._timeStamp);
+      ..write(obj.timeStamp);
   }
 
   @override
