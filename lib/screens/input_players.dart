@@ -31,65 +31,50 @@ class _Players extends ConsumerState<InputPlayers> {
         title: "Everdell Scorebook",
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)),
-        home: FutureBuilder(
-            future: Hive.openBox("score_records"),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                } else {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: const Text("Everdell Scorebook"),
-                    ),
-                    body: SafeArea(
-                      child: Column(
-                        children: [
-                          inputPlayersNames(
-                              playerScore, username, numberOfPlayers),
-                          SizedBox(
-                            height: 50,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        incrementNumberOfPlayers();
-                                      });
-                                    },
-                                    child: const Text("Add a player")),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      updateNumberOfPlayers();
-                                      print(playerScore.numberOfPlayers);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const InputScore()));
-                                    },
-                                    child: const Icon(Icons.arrow_forward)),
-                                ElevatedButton(
-                                    onPressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((context) =>
-                                                const CompleteResult()))),
-                                    child: Text("See results"))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }
-              } else {
-                return const Scaffold();
-              }
-              ;
-            }));
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text("Everdell Scorebook"),
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                inputPlayersNames(playerScore, username, numberOfPlayers),
+                SizedBox(
+                  height: 50,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              incrementNumberOfPlayers();
+                            });
+                          },
+                          child: const Text("Add a player")),
+                      ElevatedButton(
+                          onPressed: () {
+                            updateNumberOfPlayers();
+                            print(playerScore.numberOfPlayers);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const InputScore()));
+                          },
+                          child: const Icon(Icons.arrow_forward)),
+                      ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                      const CompleteResult()))),
+                          child: const Text("See results"))
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:everdell_app/screens/home_screen.dart';
 import 'package:everdell_app/screens/input_players.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ class EverdellScore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: InputPlayers(),
+      home: HomeScreen(),
     );
   }
 }
