@@ -9,14 +9,14 @@ part 'main.g.dart';
 @HiveType(typeId: 0)
 class GameScore {
   @HiveField(0)
-  final List _names;
+  final _names;
   @HiveField(1)
   final List<List<int>> _scores;
   @HiveField(2)
   final DateTime _timeStamp;
 
   List getNames() => _names;
-  List getScores() => _scores;
+  List<List<int>> getScores() => _scores;
 
   DateTime getDateTime() => _timeStamp;
   GameScore(this._names, this._scores, this._timeStamp);
