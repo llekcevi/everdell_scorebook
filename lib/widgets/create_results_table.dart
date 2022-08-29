@@ -14,13 +14,37 @@ Widget createResultsTable(List names, List scores) {
 
   for (int row = 0; row < firstColumn.length; row++) {
     rows.add(TableRow(children: [
-      Text(firstColumn[row]),
+      Text(
+        textAlign: TextAlign.center,
+        firstColumn[row],
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       if (row == 0)
-        for (int i = 0; i < names.length; i++) Text(names[i])
+        for (int i = 0; i < names.length; i++)
+          Text(
+            names[i],
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )
       else
         for (int i = 0; i < names.length; i++)
-          Text(scores[i][row - 1].toString())
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: Text(
+              scores[i][row - 1].toString(),
+              textAlign: TextAlign.center,
+            ),
+          )
     ]));
   }
-  return Table(children: rows);
+  return Table(
+      border: TableBorder(
+          bottom: BorderSide(
+              width: 1, color: Colors.black26, style: BorderStyle.solid),
+          horizontalInside: const BorderSide(
+              width: 1, color: Colors.black26, style: BorderStyle.solid),
+          verticalInside: const BorderSide(
+              width: 1, color: Colors.black26, style: BorderStyle.solid)),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: rows);
 }

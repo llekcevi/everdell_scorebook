@@ -1,8 +1,7 @@
-import 'package:everdell_app/screens/complete_result.dart';
+import 'package:everdell_app/screens/scoreboard.dart';
 import 'package:everdell_app/screens/input_players.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                   return Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: Image.asset('assets/background.jpg').image,
+                            image: Image.asset('assets/big.jpg').image,
                             fit: BoxFit.fitHeight)),
                     child: Scaffold(
                       backgroundColor: Colors.transparent,

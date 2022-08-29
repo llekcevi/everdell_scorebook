@@ -1,7 +1,6 @@
-import 'package:everdell_app/screens/complete_result.dart';
+import 'package:everdell_app/screens/scoreboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
 import 'input_score.dart';
 import '../state/state.dart';
 import '../widgets/input_players_names.dart';
@@ -31,48 +30,56 @@ class _Players extends ConsumerState<InputPlayers> {
         title: "Everdell Scorebook",
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text("Everdell Scorebook"),
-          ),
-          body: SafeArea(
-            child: Column(
-              children: [
-                inputPlayersNames(playerScore, username, numberOfPlayers),
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              incrementNumberOfPlayers();
-                            });
-                          },
-                          child: const Text("Add a player")),
-                      ElevatedButton(
-                          onPressed: () {
-                            updateNumberOfPlayers();
-                            print(playerScore.numberOfPlayers);
-                            Navigator.push(
+        home: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: Image.asset('assets/big.jpg').image,
+                  fit: BoxFit.fitHeight)),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: const Text("Everdell Scorebook"),
+            ),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  inputPlayersNames(playerScore, username, numberOfPlayers),
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                incrementNumberOfPlayers();
+                              });
+                            },
+                            child: const Text("Add a player")),
+                        ElevatedButton(
+                            onPressed: () {
+                              updateNumberOfPlayers();
+                              print(playerScore.numberOfPlayers);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const InputScore()));
+                            },
+                            child: const Icon(Icons.arrow_forward)),
+                        ElevatedButton(
+                            onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const InputScore()));
-                          },
-                          child: const Icon(Icons.arrow_forward)),
-                      ElevatedButton(
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) =>
-                                      const CompleteResult()))),
-                          child: const Text("See results"))
-                    ],
-                  ),
-                )
-              ],
+                                    builder: ((context) =>
+                                        const CompleteResult()))),
+                            child: const Text("See results"))
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ));

@@ -7,7 +7,7 @@ part 'game_score.g.dart';
 @HiveType(typeId: 0)
 class GameScore {
   @HiveField(0)
-  final names;
+  final List names;
   @HiveField(1)
   final List<List<int>> scores;
   @HiveField(2)

@@ -20,18 +20,41 @@ class ScoreDetail extends StatelessWidget {
     final minute = dateTime.minute;
 
     return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text("$day.$month.$year"),
-                Text("$hour:$minute"),
-              ],
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: Image.asset('assets/big.jpg').image,
+                fit: BoxFit.fitHeight)),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: Card(
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              color: Colors.white70,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+                      child: createResultsTable(names, scores)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "$day.$month.$year",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Text(
+                        "$hour:$minute",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            Container(child: createResultsTable(names, scores))
-          ],
+          ),
         ),
       ),
     );

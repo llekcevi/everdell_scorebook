@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'complete_result.dart';
+import 'scoreboard.dart';
 import '../models/game_score.dart';
 import '../state/state.dart';
 
@@ -22,37 +22,44 @@ class _InputScoreState extends ConsumerState<InputScore> {
       title: 'Everdell Scorebook',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)),
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text("Everdell Scorebook"),
-          ),
-          body: SafeArea(
-              child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    itemCount: playerScore.numberOfPlayers,
-                    itemBuilder: (BuildContext context, int index) {
-                      return inputScoreWidget(playerScore, index);
-                    }),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    final names = playerScore.getNames();
-                    final scores = playerScore.getScores();
-                    final timeStamp = playerScore.getTimeStamp();
-                    final newGameScore = GameScore(names, scores, timeStamp);
+      home: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: Image.asset('assets/big.jpg').image,
+                fit: BoxFit.fitHeight)),
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: const Text("Everdell Scorebook"),
+            ),
+            body: SafeArea(
+                child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: playerScore.numberOfPlayers,
+                      itemBuilder: (BuildContext context, int index) {
+                        return inputScoreWidget(playerScore, index);
+                      }),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      final names = playerScore.getNames();
+                      final scores = playerScore.getScores();
+                      final timeStamp = playerScore.getTimeStamp();
+                      final newGameScore = GameScore(names, scores, timeStamp);
 
-                    playerScore.addScoreToBox(newGameScore);
+                      playerScore.addScoreToBox(newGameScore);
 
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CompleteResult()));
-                  },
-                  child: const Text("See results"))
-            ],
-          ))),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CompleteResult()));
+                    },
+                    child: const Text("See results"))
+              ],
+            ))),
+      ),
     );
   }
 
@@ -60,7 +67,7 @@ class _InputScoreState extends ConsumerState<InputScore> {
     String player = playerScore.getNames()[index].toString();
 
     return Card(
-      color: Colors.white54,
+      color: Colors.white70,
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
