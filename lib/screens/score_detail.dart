@@ -1,3 +1,4 @@
+import 'package:everdell_app/theme/background.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../widgets/create_results_table.dart';
@@ -21,37 +22,38 @@ class ScoreDetail extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: Image.asset('assets/big.jpg').image,
-                fit: BoxFit.fitHeight)),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Center(
-            child: Card(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-              color: Colors.white70,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                      margin: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
-                      child: createResultsTable(names, scores)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        "$day.$month.$year",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        "$hour:$minute",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ],
+        decoration: backgroundImage(),
+        child: Container(
+          decoration: backgroundGradient(),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Center(
+              child: Card(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                color: Colors.white70,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                        margin:
+                            EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+                        child: createResultsTable(names, scores)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          "$day.$month.$year",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          "$hour:$minute",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

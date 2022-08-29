@@ -17,7 +17,7 @@ Widget displayScoreCard(Box<dynamic> scoreBox, int index, int numberOfPlayers,
     color: Colors.white70,
     margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
     child: SizedBox(
-      height: 70,
+      height: 80,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         SizedBox(
             child: Column(
