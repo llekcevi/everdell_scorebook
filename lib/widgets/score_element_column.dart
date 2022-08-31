@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'score_element.dart';
 
 Container scoreElementColumn(
-    int index, List<List<TextEditingController>> controllers) {
+  int index,
+  List<List<TextEditingController>> controllers,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 30.0),
     child: Column(

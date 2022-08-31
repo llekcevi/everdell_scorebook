@@ -35,23 +35,23 @@ class ScoreDetail extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                        margin:
-                            EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
-                        child: createResultsTable(names, scores)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          "$day.$month.$year",
-                          style: TextStyle(fontSize: 20),
+                          "Date: $day.$month.$year",
+                          style: TextStyle(fontSize: 17),
                         ),
                         Text(
-                          "$hour:$minute",
-                          style: TextStyle(fontSize: 20),
+                          "Time: $hour:$minute",
+                          style: TextStyle(fontSize: 17),
                         ),
                       ],
                     ),
+                    Container(
+                        margin: EdgeInsets.only(
+                            top: 15.0, left: 5.0, right: 5.0, bottom: 5.0),
+                        child: createResultsTable(names, scores)),
                   ],
                 ),
               ),

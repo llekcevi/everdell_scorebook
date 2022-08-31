@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import '../state/state.dart';
 import 'package:hive/hive.dart';
 
-Widget displayScoreCard(Box<dynamic> scoreBox, int index, int numberOfPlayers,
-    PlayerScore playerScore) {
+Widget displayScoreCard(
+  Box<dynamic> scoreBox,
+  int index,
+  int numberOfPlayers,
+  PlayerScore playerScore,
+) {
   final names = scoreBox.get(index).getNames();
   final scores = scoreBox.get(index).getScores();
   final dateTime = scoreBox.get(index).getDateTime();

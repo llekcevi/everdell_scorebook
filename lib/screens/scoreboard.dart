@@ -1,3 +1,4 @@
+import 'package:everdell_app/models/game_score.dart';
 import 'package:everdell_app/theme/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,18 +30,22 @@ class CompleteResult extends ConsumerWidget {
                   Expanded(
                     child: ListView.builder(
                       itemCount: scoreBox.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ScoreDetail(
-                                          score: scoreBox,
-                                          index: index,
-                                        )));
-                          },
-                          child: displayScoreCard(
-                              scoreBox, index, numberOfPlayers, playerScore)),
+                      itemBuilder: (context, index) {
+                        final scoreDetailIndex = scoreBox.length - 1 - index;
+
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ScoreDetail(
+                                  score: scoreBox,
+                                  index: scoreDetailIndex,
+                                );
+                              }));
+                            },
+                            child: displayScoreCard(scoreBox, scoreDetailIndex,
+                                numberOfPlayers, playerScore));
+                      },
                     ),
                   ),
                   Row(

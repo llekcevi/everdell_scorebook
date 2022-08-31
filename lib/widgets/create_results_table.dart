@@ -38,12 +38,10 @@ Widget createResultsTable(List names, List scores) {
     ]));
   }
   return Table(
-      border: TableBorder(
-          bottom: BorderSide(
+      border: const TableBorder(
+          horizontalInside: BorderSide(
               width: 1, color: Colors.black26, style: BorderStyle.solid),
-          horizontalInside: const BorderSide(
-              width: 1, color: Colors.black26, style: BorderStyle.solid),
-          verticalInside: const BorderSide(
+          verticalInside: BorderSide(
               width: 1, color: Colors.black26, style: BorderStyle.solid)),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: rows);
