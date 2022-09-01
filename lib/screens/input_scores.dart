@@ -41,8 +41,14 @@ class _InputScoreState extends ConsumerState<InputScore> {
                     child: ListView.builder(
                         itemCount: playerScore.numberOfPlayers,
                         itemBuilder: (BuildContext context, int index) {
-                          return inputScoreWidget(
-                              playerScore, index, myControllers);
+                          String player =
+                              playerScore.getNames()[index].toString();
+                          return InputScoreWidget(
+                            player: player,
+                            controllers: myControllers,
+                            state: playerScore,
+                            index: index,
+                          );
                         }),
                   ),
                   ElevatedButton(

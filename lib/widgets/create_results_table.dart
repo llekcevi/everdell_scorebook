@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 
-Widget createResultsTable(List names, List scores) {
+class ResultsTable extends StatelessWidget {
+  const ResultsTable({
+    Key? key,
+    required this.names,
+    required this.scores,
+  }) : super(key: key);
+
+  final List names;
+  final List scores;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(child: createResultsTable(names, scores));
+  }
+}
+
+Table createResultsTable(List names, List scores) {
   final List<String> firstColumn = [
     "Names",
     "Cards",

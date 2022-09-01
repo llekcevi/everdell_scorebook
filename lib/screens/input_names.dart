@@ -26,6 +26,7 @@ class _Players extends ConsumerState<InputPlayers> {
   @override
   Widget build(BuildContext context) {
     final playerScore = ref.read(playerScoreProvider.notifier);
+    final names = playerScore.getNames().toString();
 
     return MaterialApp(
         title: "Everdell Scorebook",
@@ -48,8 +49,10 @@ class _Players extends ConsumerState<InputPlayers> {
                     Expanded(
                       child: Column(
                         children: [
-                          inputPlayersNames(
-                              playerScore, username, numberOfPlayers),
+                          InputPlayersNames(
+                              numberOfPlayers: numberOfPlayers,
+                              username: username,
+                              names: names),
                           ElevatedButton(
                               onPressed: () {
                                 setState(() {

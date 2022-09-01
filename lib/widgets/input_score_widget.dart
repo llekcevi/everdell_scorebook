@@ -2,35 +2,48 @@ import 'package:flutter/material.dart';
 import '../state/state.dart';
 import './score_element_column.dart';
 
-Card inputScoreWidget(
-  PlayerScore playerScore,
-  int index,
-  List<List<TextEditingController>> controllers,
-) {
-  String player = playerScore.getNames()[index].toString();
+class InputScoreWidget extends StatelessWidget {
+  const InputScoreWidget({
+    Key? key,
+    required this.player,
+    required this.controllers,
+    required this.state,
+    required this.index,
+  }) : super(key: key);
 
-  return Card(
-    color: Colors.white70,
-    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("$player, enter your points",
-              style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          scoreElementColumn(index, controllers),
-          ElevatedButton(
-              onPressed: () {
-                playerScore.updateScoreInfo(index, controllers);
-                print("getScores(list): ${playerScore.getScores()}");
+  final String player;
+  final List<List<TextEditingController>> controllers;
+  final PlayerScore state;
+  final int index;
 
-                print("Enter scores in order");
-              },
-              child: const Text("Submit")),
-        ],
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white70,
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("$player, enter your points",
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            ScoreElementColumn(
+              index: index,
+              textControllers: controllers,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  state.updateScoreInfo(index, controllers);
+                  print("getScores(list): ${state.getScores()}");
+
+                  print("Enter scores in order");
+                },
+                child: const Text("Submit")),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

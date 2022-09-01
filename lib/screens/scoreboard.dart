@@ -1,4 +1,3 @@
-import 'package:everdell_app/models/game_score.dart';
 import 'package:everdell_app/theme/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,8 +42,11 @@ class CompleteResult extends ConsumerWidget {
                                 );
                               }));
                             },
-                            child: displayScoreCard(scoreBox, scoreDetailIndex,
-                                numberOfPlayers, playerScore));
+                            child: DisplayScoreCard(
+                                index: scoreDetailIndex,
+                                scoreBox: scoreBox,
+                                numberOfPlayers: numberOfPlayers,
+                                playerScore: playerScore));
                       },
                     ),
                   ),
