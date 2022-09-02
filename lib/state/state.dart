@@ -7,7 +7,8 @@ class PlayerScore extends StateNotifier<GameScore> {
   PlayerScore() : super(GameScore([], [], DateTime.now()));
 
   int numberOfPlayers = 1;
-  int nameInputCounter = 0;
+  bool sortingToggle = true;
+  bool switchSortingToggle() => !sortingToggle;
 
   List getNames() => state.names;
 

@@ -10,7 +10,9 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(GameScoreAdapter());
-  runApp(const ProviderScope(child: EverdellScore()));
+  runApp(const ProviderScope(
+    child: EverdellScore(),
+  ));
 }
 
 class EverdellScore extends StatelessWidget {
