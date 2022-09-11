@@ -50,16 +50,16 @@ class _Players extends ConsumerState<InputPlayers> {
                       child: Column(
                         children: [
                           InputPlayersNames(
-                              numberOfPlayers: numberOfPlayers,
-                              username: username,
-                              names: names),
+                            numberOfPlayers: numberOfPlayers,
+                            username: username,
+                          ),
                           ElevatedButton(
                               onPressed: () {
                                 setState(() {
                                   incrementNumberOfPlayers();
                                 });
                               },
-                              child: const Text("Add a player")),
+                              child: const Text("Add another player")),
                         ],
                       ),
                     ),
@@ -73,20 +73,15 @@ class _Players extends ConsumerState<InputPlayers> {
                               onPressed: () {
                                 updateNumberOfPlayers();
                                 print(playerScore.numberOfPlayers);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const InputScore()));
+                                playerScore.getNames().length != numberOfPlayers
+                                    ? null
+                                    : Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const InputScore()));
                               },
                               child: const Text("Input scores")),
-                          ElevatedButton(
-                              onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const CompleteResult()))),
-                              child: const Text("See results"))
                         ],
                       ),
                     )

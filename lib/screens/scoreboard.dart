@@ -25,74 +25,72 @@ class _CompleteResult extends ConsumerState<CompleteResult> {
     final scoreBox = Hive.box("score_records");
     final numberOfPlayers = playerScore.numberOfPlayers;
 
-    return SafeArea(
+    return Container(
+      decoration: backgroundImage(),
       child: Container(
-        decoration: backgroundImage(),
-        child: Container(
-          decoration: backgroundGradient(),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: IconButton(
-                    icon: Icon(Icons.sort),
-                    onPressed: (() {
-                      setState(() {
-                        switchSortingToggle();
-                        print(sortingToggle);
-                      });
-                    }),
-                  ),
-                )
-              ],
-              title: const Text("Everdell Scorebook"),
+        decoration: backgroundGradient(),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
             ),
-            body: Container(
-              padding: EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: scoreBox.length,
-                      itemBuilder: (context, index) {
-                        final mostRecentOnTop = scoreBox.length - 1 - index;
-
-                        return GestureDetector(
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return ScoreDetail(
-                                  score: scoreBox,
-                                  index: changeSorting(
-                                      sortingToggle, index, mostRecentOnTop),
-                                );
-                              }));
-                            },
-                            child: DisplayScoreCard(
-                                index: changeSorting(
-                                    sortingToggle, index, mostRecentOnTop),
-                                scoreBox: scoreBox,
-                                numberOfPlayers: numberOfPlayers,
-                                playerScore: playerScore));
-                      },
-                    ),
+            actions: [
+              Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: GestureDetector(
+                      child: Row(
+                        children: [
+                          Text("Sort"),
+                          Icon(sortingToggle
+                              ? Icons.arrow_downward
+                              : Icons.arrow_upward),
+                        ],
+                      ),
+                      onTap: () {
+                        setState(
+                          () {
+                            switchSortingToggle();
+                          },
+                        );
+                      }))
+            ],
+            title: const Text("Scoreboard"),
+          ),
+          body: Container(
+            color: Colors.transparent,
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: scoreBox.length,
+                    itemBuilder: (context, index) {
+                      final mostRecentOnTop = scoreBox.length - 1 - index;
+                      final sortingIndex =
+                          changeSorting(sortingToggle, index, mostRecentOnTop);
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ScoreDetail(
+                                score: scoreBox,
+                                index: sortingIndex,
+                              );
+                            }));
+                          },
+                          child: DisplayScoreCard(
+                              index: sortingIndex,
+                              scoreBox: scoreBox,
+                              numberOfPlayers: numberOfPlayers,
+                              playerScore: playerScore));
+                    },
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () => scoreBox.clear(),
-                          child: Text("delete all")),
-                      ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text("back"))
-                    ],
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -37,8 +37,6 @@ class InputScoreWidget extends StatelessWidget {
                 onPressed: () {
                   state.updateScoreInfo(index, controllers);
                   print("getScores(list): ${state.getScores()}");
-
-                  print("Enter scores in order");
                 },
                 child: const Text("Submit")),
           ],
