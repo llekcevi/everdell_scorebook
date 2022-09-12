@@ -64,7 +64,7 @@ class _InputPlayersNames extends ConsumerState<InputPlayersNames> {
                                   playerScore.getNames(), index, name);
                             });
                           } else {
-                            (showDialog(
+                            showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
@@ -81,7 +81,7 @@ class _InputPlayersNames extends ConsumerState<InputPlayersNames> {
                                           },
                                         ),
                                       ]);
-                                }));
+                                });
                           }
                           print(nameEntered);
                           //print(names);

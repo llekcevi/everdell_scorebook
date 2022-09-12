@@ -60,11 +60,10 @@ class _InputScoreState extends ConsumerState<InputScore> {
                             GameScore(names, scores, timeStamp);
 
                         playerScore.addScoreToBox(newGameScore);
-
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const CompleteResult()));
+                                builder: (context) => const Scoreboard()));
                       },
                       child: const Text("Done"))
                 ],

@@ -1,4 +1,3 @@
-import 'package:everdell_app/screens/scoreboard.dart';
 import 'package:everdell_app/theme/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +25,6 @@ class _Players extends ConsumerState<InputPlayers> {
   @override
   Widget build(BuildContext context) {
     final playerScore = ref.read(playerScoreProvider.notifier);
-    final names = playerScore.getNames().toString();
 
     return MaterialApp(
         title: "Everdell Scorebook",
@@ -56,7 +54,9 @@ class _Players extends ConsumerState<InputPlayers> {
                           ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  incrementNumberOfPlayers();
+                                  numberOfPlayers < 4
+                                      ? incrementNumberOfPlayers()
+                                      : null;
                                 });
                               },
                               child: const Text("Add another player")),

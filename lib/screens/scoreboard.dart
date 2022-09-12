@@ -6,15 +6,15 @@ import 'score_detail.dart';
 import '../state/state.dart';
 import '../widgets/display_score_card.dart';
 
-class CompleteResult extends ConsumerStatefulWidget {
-  const CompleteResult({Key? key}) : super(key: key);
+class Scoreboard extends ConsumerStatefulWidget {
+  const Scoreboard({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<CompleteResult> createState() => _CompleteResult();
+  ConsumerState<Scoreboard> createState() => _Scoreboard();
 }
 
-class _CompleteResult extends ConsumerState<CompleteResult> {
-  bool sortingToggle = true;
+class _Scoreboard extends ConsumerState<Scoreboard> {
+  bool sortingToggle = false;
   bool switchSortingToggle() => sortingToggle = !sortingToggle;
   int changeSorting(bool sortingToggle, int firstIndex, int secondIndex) =>
       sortingToggle ? firstIndex : secondIndex;
@@ -34,9 +34,8 @@ class _CompleteResult extends ConsumerState<CompleteResult> {
           appBar: AppBar(
             leading: IconButton(
               icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
+              onPressed: () =>
+                  Navigator.of(context).popUntil((route) => route.isFirst),
             ),
             actions: [
               Padding(

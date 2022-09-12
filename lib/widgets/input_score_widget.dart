@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../state/state.dart';
 import './score_element_column.dart';
+import 'submit_scores_button.dart';
 
 class InputScoreWidget extends StatelessWidget {
   const InputScoreWidget({
@@ -18,6 +19,8 @@ class InputScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("submittedIndex before build: ${state.submittedIndex}");
+
     return Card(
       color: Colors.white70,
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
@@ -33,12 +36,8 @@ class InputScoreWidget extends StatelessWidget {
               index: index,
               textControllers: controllers,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  state.updateScoreInfo(index, controllers);
-                  print("getScores(list): ${state.getScores()}");
-                },
-                child: const Text("Submit")),
+            SubmitScoresButton(
+                state: state, index: index, controllers: controllers),
           ],
         ),
       ),

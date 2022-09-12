@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const CompleteResult())),
+                                              const Scoreboard())),
                                   child: const Text("See scoreboard"))
                             ],
                           ),

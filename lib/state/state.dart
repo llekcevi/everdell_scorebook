@@ -6,9 +6,9 @@ import 'package:hive/hive.dart';
 class PlayerScore extends StateNotifier<GameScore> {
   PlayerScore() : super(GameScore([], [], DateTime.now()));
 
+  int submittedIndex = 0;
+
   int numberOfPlayers = 1;
-  bool sortingToggle = true;
-  bool switchSortingToggle() => !sortingToggle;
 
   List getNames() => state.names;
 
@@ -19,6 +19,7 @@ class PlayerScore extends StateNotifier<GameScore> {
     for (int i = 0; i < 5; i++) {
       scorePoints.add(int.parse(userInput[index][i].text));
     }
+    submittedIndex++;
     state.scores.add(scorePoints);
   }
 
