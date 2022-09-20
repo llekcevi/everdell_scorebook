@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: Color.fromRGBO(211, 114, 55, 100))),
+                seedColor: const Color.fromRGBO(211, 114, 55, 100))),
         home: FutureBuilder(
             future: Hive.openBox("score_records"),
             builder: (context, snapshot) {

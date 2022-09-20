@@ -54,6 +54,7 @@ class _Players extends ConsumerState<InputPlayers> {
                           ElevatedButton(
                               onPressed: () {
                                 setState(() {
+                                  print(playerScore.getNames());
                                   numberOfPlayers < 4
                                       ? incrementNumberOfPlayers()
                                       : null;
@@ -82,6 +83,14 @@ class _Players extends ConsumerState<InputPlayers> {
                                                 const InputScore()));
                               },
                               child: const Text("Input scores")),
+                          ElevatedButton(
+                              onPressed: () {
+                                print(playerScore.getNames());
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                ref.refresh(playerScoreProvider);
+                              },
+                              child: const Text("give up")),
                         ],
                       ),
                     )
