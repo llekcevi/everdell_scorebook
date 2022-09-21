@@ -1,6 +1,8 @@
+import 'package:everdell_app/state/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ResultsTable extends StatelessWidget {
+class ResultsTable extends ConsumerWidget {
   const ResultsTable({
     Key? key,
     required this.names,
@@ -11,19 +13,21 @@ class ResultsTable extends StatelessWidget {
   final List scores;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(child: createResultsTable(names, scores));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final playerScore = ref.read(playerScoreProvider.notifier);
+    return Container(child: createResultsTable(names, scores, playerScore));
   }
 }
 
-Table createResultsTable(List names, List scores) {
+Table createResultsTable(List names, List scores, PlayerScore provider) {
   final List<String> firstColumn = [
     "Names",
     "Cards",
     "Tokens",
     "Prosperity bonus",
     "Journey",
-    "Events"
+    "Events",
+    "Total"
   ];
 
   List<TableRow> rows = [];
@@ -33,14 +37,21 @@ Table createResultsTable(List names, List scores) {
       Text(
         textAlign: TextAlign.center,
         firstColumn[row],
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       if (row == 0)
         for (int i = 0; i < names.length; i++)
           Text(
             names[i],
             textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          )
+      else if (row == firstColumn.length - 1)
+        for (int i = 0; i < names.length; i++)
+          Text(
+            provider.getScoreSum(scores, i).toString(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           )
       else
         for (int i = 0; i < names.length; i++)

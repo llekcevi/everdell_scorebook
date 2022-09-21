@@ -1,3 +1,4 @@
+import 'package:everdell_app/state/state.dart';
 import 'package:everdell_app/theme/background.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -40,18 +41,21 @@ class ScoreDetail extends StatelessWidget {
                       children: [
                         Text(
                           "Date: $day.$month.$year",
-                          style: TextStyle(fontSize: 17),
+                          style: const TextStyle(fontSize: 17),
                         ),
                         Text(
                           "Time: $hour:$minute",
-                          style: TextStyle(fontSize: 17),
+                          style: const TextStyle(fontSize: 17),
                         ),
                       ],
                     ),
                     Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                             top: 15.0, left: 5.0, right: 5.0, bottom: 5.0),
-                        child: ResultsTable(names: names, scores: scores)),
+                        child: ResultsTable(
+                          names: names,
+                          scores: scores,
+                        )),
                   ],
                 ),
               ),

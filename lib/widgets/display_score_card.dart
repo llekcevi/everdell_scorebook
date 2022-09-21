@@ -43,17 +43,17 @@ class DisplayScoreCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           "${names[i].toString()}: "),
                       Text(
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           playerScore.getScoreSum(scores, i).toString()),
                     ],
                   ),
               ],
             )),
             Text(
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 "Date: $day.$month.$year. \n Time: $hour:$minute"),
           ]),
         ),

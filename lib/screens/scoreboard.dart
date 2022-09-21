@@ -42,20 +42,16 @@ class _Scoreboard extends ConsumerState<Scoreboard> {
               Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: GestureDetector(
-                      child: Row(
-                        children: [
-                          Text("Sort"),
-                          Icon(sortingToggle
-                              ? Icons.arrow_downward
-                              : Icons.arrow_upward),
-                        ],
-                      ),
+                      child: Row(children: [
+                        const Text("Sort"),
+                        Icon(sortingToggle
+                            ? Icons.arrow_downward
+                            : Icons.arrow_upward),
+                      ]),
                       onTap: () {
-                        setState(
-                          () {
-                            switchSortingToggle();
-                          },
-                        );
+                        setState(() {
+                          switchSortingToggle();
+                        });
                       }))
             ],
             title: const Text("Scoreboard"),
