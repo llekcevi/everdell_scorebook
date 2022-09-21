@@ -33,10 +33,11 @@ class _Scoreboard extends ConsumerState<Scoreboard> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             leading: IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () =>
-                  Navigator.of(context).popUntil((route) => route.isFirst),
-            ),
+                icon: const Icon(Icons.home),
+                onPressed: (() {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  ref.refresh(playerScoreProvider);
+                })),
             actions: [
               Padding(
                   padding: const EdgeInsets.only(right: 8.0),

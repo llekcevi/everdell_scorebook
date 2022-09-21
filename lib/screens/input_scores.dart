@@ -5,6 +5,7 @@ import '../models/game_score.dart';
 import '../state/state.dart';
 import '../widgets/input_score_widget.dart';
 import '../theme/background.dart';
+import '../widgets/cancel_icon_button.dart';
 
 class InputScore extends ConsumerStatefulWidget {
   const InputScore({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _InputScoreState extends ConsumerState<InputScore> {
       title: 'Everdell Scorebook',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromRGBO(211, 114, 55, 100))),
+              seedColor: const Color.fromRGBO(211, 114, 55, 100))),
       home: Container(
         decoration: backgroundImage(),
         child: Container(
@@ -33,6 +34,13 @@ class _InputScoreState extends ConsumerState<InputScore> {
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 title: const Text("Everdell Scorebook"),
+                actions: [
+                  CancelIconButton(
+                    ref: ref,
+                    buildContext: context,
+                    provider: playerScoreProvider,
+                  )
+                ],
               ),
               body: SafeArea(
                   child: Column(

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'input_scores.dart';
 import '../state/state.dart';
 import '../widgets/input_players_names.dart';
+import '../widgets/cancel_icon_button.dart';
 
 class InputPlayers extends ConsumerStatefulWidget {
   const InputPlayers({Key? key}) : super(key: key);
@@ -39,6 +40,13 @@ class _Players extends ConsumerState<InputPlayers> {
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 title: const Text("Everdell Scorebook"),
+                actions: [
+                  CancelIconButton(
+                    ref: ref,
+                    buildContext: context,
+                    provider: playerScoreProvider,
+                  )
+                ],
               ),
               body: SafeArea(
                 child: Column(
@@ -83,14 +91,6 @@ class _Players extends ConsumerState<InputPlayers> {
                                                 const InputScore()));
                               },
                               child: const Text("Input scores")),
-                          ElevatedButton(
-                              onPressed: () {
-                                print(playerScore.getNames());
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                ref.refresh(playerScoreProvider);
-                              },
-                              child: const Text("give up")),
                         ],
                       ),
                     )
