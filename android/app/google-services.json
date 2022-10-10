@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "139109314186",
+    "project_id": "everdell-c4fad",
+    "storage_bucket": "everdell-c4fad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139109314186:android:3802100c0f262171bec773",
+        "android_client_info": {
+          "package_name": "com.example.everdell_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139109314186-kgprk7c703ot1ejkk1e454gba9delq6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApLM4uTs-WFZYHAGpFLJMXCWFgbTMX-_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139109314186-kgprk7c703ot1ejkk1e454gba9delq6o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "139109314186-aa6h91ae30rc4uckq54s2t9tcvhr56h1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.everdellApp31822"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
