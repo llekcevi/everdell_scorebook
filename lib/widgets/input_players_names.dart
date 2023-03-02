@@ -52,41 +52,44 @@ class _InputPlayersNames extends ConsumerState<InputPlayersNames> {
                       autocorrect: false,
                       controller: widget.username[index],
                       decoration: InputDecoration(
-                          suffixIcon:
-                              Icon(nameEntered[index] ? Icons.check : null),
-                          border: UnderlineInputBorder()),
+                        suffixIcon:
+                            Icon(nameEntered[index] ? Icons.check : null),
+                        border: const UnderlineInputBorder(),
+                      ),
                       onSubmitted: (String name) {
                         {
                           if (widget.username[index].text.isNotEmpty) {
                             addName(index);
-                            setState(() {
-                              checkPlayerName(
-                                  playerScore.getNames(), index, name);
-                            });
+                            setState(
+                              () {
+                                checkPlayerName(
+                                    playerScore.getNames(), index, name);
+                              },
+                            );
                           } else {
                             showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                      backgroundColor:
-                                          Color.fromARGB(202, 255, 255, 255),
-                                      title: Text("Error"),
-                                      content: Text(
-                                          "Player's name is empty! Please input player's name."),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: const Text('OK'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ]);
-                                });
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor:
+                                      const Color.fromARGB(202, 255, 255, 255),
+                                  title: const Text("Error"),
+                                  content: const Text(
+                                      "Player's name is empty! Please input player's name."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
                           print(nameEntered);
-                          //print(names);
                         }
-                        // print(names);
                       },
                     ),
                   )

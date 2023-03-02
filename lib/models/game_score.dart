@@ -17,5 +17,6 @@ class GameScore {
   List<List<int>> getScores() => scores;
 
   DateTime getDateTime() => timeStamp;
+
   GameScore(this.names, this.scores, this.timeStamp);
 }

@@ -33,26 +33,33 @@ class _Scoreboard extends ConsumerState<Scoreboard> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             leading: IconButton(
-                icon: const Icon(Icons.home),
-                onPressed: (() {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                  ref.refresh(playerScoreProvider);
-                })),
+              icon: const Icon(Icons.home),
+              onPressed: (() {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                ref.refresh(playerScoreProvider);
+              }),
+            ),
             actions: [
               Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: GestureDetector(
-                      child: Row(children: [
-                        const Text("Sort"),
-                        Icon(sortingToggle
-                            ? Icons.arrow_downward
-                            : Icons.arrow_upward),
-                      ]),
-                      onTap: () {
-                        setState(() {
-                          switchSortingToggle();
-                        });
-                      }))
+                padding: const EdgeInsets.only(right: 8.0),
+                child: GestureDetector(
+                  child: Row(
+                    children: [
+                      const Text("Sort"),
+                      Icon(sortingToggle
+                          ? Icons.arrow_downward
+                          : Icons.arrow_upward),
+                    ],
+                  ),
+                  onTap: () {
+                    setState(
+                      () {
+                        switchSortingToggle();
+                      },
+                    );
+                  },
+                ),
+              )
             ],
             title: const Text("Scoreboard"),
           ),
@@ -69,20 +76,25 @@ class _Scoreboard extends ConsumerState<Scoreboard> {
                       final sortingIndex =
                           changeSorting(sortingToggle, index, mostRecentOnTop);
                       return GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return ScoreDetail(
-                                score: scoreBox,
-                                index: sortingIndex,
-                              );
-                            }));
-                          },
-                          child: DisplayScoreCard(
-                              index: sortingIndex,
-                              scoreBox: scoreBox,
-                              numberOfPlayers: numberOfPlayers,
-                              playerScore: playerScore));
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ScoreDetail(
+                                  score: scoreBox,
+                                  index: sortingIndex,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child: DisplayScoreCard(
+                            index: sortingIndex,
+                            scoreBox: scoreBox,
+                            numberOfPlayers: numberOfPlayers,
+                            playerScore: playerScore),
+                      );
                     },
                   ),
                 ),

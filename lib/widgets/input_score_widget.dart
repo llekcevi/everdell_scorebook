@@ -29,8 +29,10 @@ class InputScoreWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("$player, enter your points",
-                style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              "$player, enter your points",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 10),
             ScoreElementColumn(
               index: index,

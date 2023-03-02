@@ -16,9 +16,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(
-    child: EverdellScore(),
-  ));
+  runApp(
+    const ProviderScope(
+      child: EverdellScore(),
+    ),
+  );
 }
 
 class EverdellScore extends StatelessWidget {

@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class PlayerScore extends StateNotifier<GameScore> {
-  PlayerScore() : super(GameScore([], [], DateTime.now()));
+  PlayerScore()
+      : super(
+          GameScore(
+            [],
+            [],
+            DateTime.now(),
+          ),
+        );
 
   int submittedIndex = 0;
 
@@ -43,5 +50,6 @@ class PlayerScore extends StateNotifier<GameScore> {
   }
 }
 
-final playerScoreProvider =
-    StateNotifierProvider<PlayerScore, GameScore>(((ref) => PlayerScore()));
+final playerScoreProvider = StateNotifierProvider<PlayerScore, GameScore>(
+  ((ref) => PlayerScore()),
+);

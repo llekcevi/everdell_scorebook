@@ -50,12 +50,13 @@ class ScoreDetail extends StatelessWidget {
                       ],
                     ),
                     Container(
-                        margin: const EdgeInsets.only(
-                            top: 15.0, left: 5.0, right: 5.0, bottom: 5.0),
-                        child: ResultsTable(
-                          names: names,
-                          scores: scores,
-                        )),
+                      margin: const EdgeInsets.only(
+                          top: 15.0, left: 5.0, right: 5.0, bottom: 5.0),
+                      child: ResultsTable(
+                        names: names,
+                        scores: scores,
+                      ),
+                    ),
                   ],
                 ),
               ),

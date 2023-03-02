@@ -24,58 +24,65 @@ class _InputScoreState extends ConsumerState<InputScore> {
     return MaterialApp(
       title: 'Everdell Scorebook',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromRGBO(211, 114, 55, 100))),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromRGBO(211, 114, 55, 100),
+        ),
+      ),
       home: Container(
         decoration: backgroundImage(),
         child: Container(
           decoration: backgroundGradient(),
           child: Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                title: const Text("Everdell Scorebook"),
-                actions: [
-                  CancelIconButton(
-                    ref: ref,
-                    buildContext: context,
-                    provider: playerScoreProvider,
-                  )
-                ],
-              ),
-              body: SafeArea(
-                  child: Column(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: const Text("Everdell Scorebook"),
+              actions: [
+                CancelIconButton(
+                  ref: ref,
+                  buildContext: context,
+                  provider: playerScoreProvider,
+                )
+              ],
+            ),
+            body: SafeArea(
+              child: Column(
                 children: [
                   Expanded(
                     child: ListView.builder(
-                        itemCount: playerScore.numberOfPlayers,
-                        itemBuilder: (BuildContext context, int index) {
-                          String player =
-                              playerScore.getNames()[index].toString();
-                          return InputScoreWidget(
-                            player: player,
-                            controllers: myControllers,
-                            state: playerScore,
-                            index: index,
-                          );
-                        }),
+                      itemCount: playerScore.numberOfPlayers,
+                      itemBuilder: (BuildContext context, int index) {
+                        String player =
+                            playerScore.getNames()[index].toString();
+                        return InputScoreWidget(
+                          player: player,
+                          controllers: myControllers,
+                          state: playerScore,
+                          index: index,
+                        );
+                      },
+                    ),
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        final names = playerScore.getNames();
-                        final scores = playerScore.getScores();
-                        final timeStamp = playerScore.getTimeStamp();
-                        final newGameScore =
-                            GameScore(names, scores, timeStamp);
+                    onPressed: () {
+                      final names = playerScore.getNames();
+                      final scores = playerScore.getScores();
+                      final timeStamp = playerScore.getTimeStamp();
+                      final newGameScore = GameScore(names, scores, timeStamp);
 
-                        playerScore.addScoreToBox(newGameScore);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Scoreboard()));
-                      },
-                      child: const Text("Done"))
+                      playerScore.addScoreToBox(newGameScore);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Scoreboard(),
+                        ),
+                      );
+                    },
+                    child: const Text("Done"),
+                  )
                 ],
-              ))),
+              ),
+            ),
+          ),
         ),
       ),
     );

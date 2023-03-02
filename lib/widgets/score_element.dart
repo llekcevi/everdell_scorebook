@@ -31,9 +31,10 @@ class ScoreElement extends StatelessWidget {
               ],
               controller: textController[index][controllerIndex],
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(5)),
+                border: OutlineInputBorder(),
+                isDense: true,
+                contentPadding: EdgeInsets.all(5),
+              ),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
             ),

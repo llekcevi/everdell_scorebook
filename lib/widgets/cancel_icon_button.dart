@@ -17,10 +17,11 @@ class CancelIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          Navigator.of(buildContext).popUntil((route) => route.isFirst);
-          ref.refresh(provider);
-        },
-        icon: const Icon(Icons.cancel));
+      onPressed: () {
+        Navigator.of(buildContext).popUntil((route) => route.isFirst);
+        ref.refresh(provider);
+      },
+      icon: const Icon(Icons.cancel),
+    );
   }
 }

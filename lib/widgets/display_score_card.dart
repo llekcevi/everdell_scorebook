@@ -33,32 +33,36 @@ class DisplayScoreCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
         child: SizedBox(
           height: 80,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            SizedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < names.length; i++)
-                  Row(
-                    children: [
-                      Text(
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          "${names[i].toString()}: "),
-                      Text(
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          playerScore.getScoreSum(scores, i).toString()),
-                    ],
-                  ),
-              ],
-            )),
-            Text(
-                style: const TextStyle(fontWeight: FontWeight.bold),
-                "Date: $day.$month.$year. \n Time: $hour:$minute"),
-          ]),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = 0; i < names.length; i++)
+                      Row(
+                        children: [
+                          Text(
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                              "${names[i].toString()}: "),
+                          Text(
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            playerScore.getScoreSum(scores, i).toString(),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+              Text(
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  "Date: $day.$month.$year. \n Time: $hour:$minute"),
+            ],
+          ),
         ),
       );
     }
-    ;
   }
 }
