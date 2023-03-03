@@ -16,50 +16,52 @@ class HomeScreen extends StatelessWidget {
       home: FutureBuilder(
         future: Hive.openBox("score_records"),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            } else {
-              return Container(
-                decoration: backgroundImage(),
-                child: Container(
-                  decoration: backgroundGradient(),
-                  child: Scaffold(
-                    backgroundColor: Colors.transparent,
-                    appBar: AppBar(
-                      title: const Text("Everdell Scorebook"),
-                    ),
-                    body: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const InputPlayers(),
-                              ),
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          } else if (snapshot.hasData) {
+            return Container(
+              decoration: backgroundImage(),
+              child: Container(
+                decoration: backgroundGradient(),
+                child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  appBar: AppBar(
+                    title: const Text("Everdell Scorebook"),
+                  ),
+                  body: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const InputPlayers(),
                             ),
-                            child: const Text("Add new score"),
                           ),
-                          ElevatedButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Scoreboard(),
-                              ),
+                          child: const Text("Add new score"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Scoreboard(),
                             ),
-                            child: const Text("See scoreboard"),
-                          )
-                        ],
-                      ),
+                          ),
+                          child: const Text("See scoreboard"),
+                        )
+                      ],
                     ),
                   ),
                 ),
-              );
-            }
+              ),
+            );
           } else {
-            return const Scaffold();
+            return Container(
+                decoration: backgroundImage(),
+                child: Container(
+                    decoration: backgroundGradient(),
+                    child: const CircularProgressIndicator()));
           }
         },
       ),
